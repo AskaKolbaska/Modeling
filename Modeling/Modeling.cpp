@@ -3,10 +3,32 @@
 
 #include <iostream>
 #include "Lab1.h"
+#include "Lab2.h"
 
 int main()
 {
-    Lab1();
+    RusConsole();
+    
+    int otvet = 0;
+    do
+    {
+        cout << "Выберите номер задания (доступно 2): ";
+        cin >> otvet;
+        switch (otvet)
+        {
+        case 1:
+        {
+            Lab1();
+            break;
+        }
+        case 2: {
+            Lab2();
+            break;
+        }
+        default:
+            break;
+        }
+    } while (otvet != 0);
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
