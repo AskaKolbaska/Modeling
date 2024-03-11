@@ -30,7 +30,7 @@ void Lab2() {
 	e[3] = 8 * (p + q) + 100;
 
 	// вектор-столбец b
-	vector<double> b{ 0, 0,  e[0] + e[2], e[1], e[2] + e[3] };
+	double* b{ new double[m] { 0, 0,  e[0] + e[2], e[1], e[2] + e[3] } };
 
 	// CЛАУ (сатане)
 	double** A{ new double* [m] {} };
@@ -41,4 +41,80 @@ void Lab2() {
 	A[3] = new double[m] {0, r[1], 0, 0, r[4]};
 	A[4] = new double[m] {0, 0, r[2], r[3], 0 };
 
+	double* i = Gaousse(A, b, m);
+	cout << "Значение тока в цепях:" << endl;
+	for (int k = 0; k < m; k++)
+	{
+		cout << "i[" << k + 1 << "] = " << i[k] << endl;;
+	}
+	
+	// TODO:  расчет напряжения на частично разряженном втором аккумуляторе
+}
+
+// метод гаусса
+double* Gaousse(double** a, double* b, int n) {
+		
+	for (int k = 0; k < n; k++)
+	{
+		if (a[k][k] == 0) { // Проверка ведущего элемента
+			double max = 0;
+			int imax = k;
+
+			for (int i = k + 1; i < n; i++)
+			{
+				if (abs(a[i][k] > max)) {
+					max = abs(a[i][k]);
+					imax = i;
+				}
+			}
+			// Меняем уравнения местами
+			double v;
+			for (int j = k; j < n; j++)
+			{
+				v = a[k][j];
+				a[k][j] = a[imax][j];
+				a[imax][j] = v;
+			}
+
+			v = b[k];
+			b[k] = b[imax];
+			b[imax] = v;
+
+		}
+
+		double akk = a[k][k];
+		b[k] /= akk; // Делим правую часть на ведущий элемент
+		for (int j = k; j < n; j++)
+		{
+			a[k][j] /= akk; // Делим текущую строку на ведущий элемент
+		}
+
+		for (int i = k + 1; i < n; i++)
+		{
+			//Перебираем последующие строки, получаем 0 в k-ом столбце 
+			if (a[i][k] != 0)
+			{
+				double aik = a[i][k];
+				b[i] /= aik;
+				b[i] -= b[k];
+				for (int j = k; j < n; j++)
+				{
+					a[i][j] /= aik;
+					a[i][j] -= a[k][j];
+				}
+			}
+		}
+
+		
+	}
+
+	for (int i = n - 2; i >= 0; i--)
+	{
+		for (int j = i + 1; j < n; j++)
+		{
+			b[i] -= a[i][j] * b[j];
+		}
+	}
+
+	return b;
 }

@@ -40,7 +40,7 @@ void Zad2(int p, int q) {
 
 	cout << endl << "Задание 2: найти первоначальный вклад" << endl << endl;
 
-	double z0 = 10 * y * pow(CountR(p, q), 2) / (10 * CountR(p, q) * (1 + 1 / (10 * CountR(p, q))) * pow(1 + CountR(p, q), t + 1) - t * CountR(p, q) - 1);
+	double z0 = y/(10 * y * pow(CountR(p, q), 2) / (10 * CountR(p, q) * (1 + 1 / (10 * CountR(p, q))) * pow(1 + CountR(p, q), t + 1) - t * CountR(p, q) - 1));
 	cout << "Начальный вклад должен составлять: " << z0 << endl;
 }
 
