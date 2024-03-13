@@ -41,18 +41,19 @@ void Lab2() {
 	A[3] = new double[m] {0, r[1], 0, 0, r[4]};
 	A[4] = new double[m] {0, 0, r[2], r[3], 0 };
 
-	double* i = Gaousse(A, b, m);
+	double* i = Gaousse(A, b, m, m);
 	cout << "Значение тока в цепях:" << endl;
 	for (int k = 0; k < m; k++)
 	{
-		cout << "i[" << k + 1 << "] = " << i[k] << endl;;
+		cout << "i[" << k + 1 << "] = " << i[k] << endl;
 	}
 	
-	// TODO:  расчет напряжения на частично разряженном втором аккумуляторе
+	// TODO: расчет напряжения на частично разряженном втором аккумуляторе
+	Zad2(r, e, i, m);
 }
 
 // метод гаусса
-double* Gaousse(double** a, double* b, int n) {
+double* Gaousse(double** a, double* b, int n, int m) {
 		
 	for (int k = 0; k < n; k++)
 	{
@@ -117,4 +118,37 @@ double* Gaousse(double** a, double* b, int n) {
 	}
 
 	return b;
+}
+
+// расчет ЭДС (вход: массив напряжений, 
+void Zad2(double* r, double* e, double* i, int m) {
+	// напряжение е2
+	double e2;
+	// Задаем массив ЭДС с учетом уменьшения до 80%
+	for (int k = 0; k < m; k++)
+	{
+		e[k] *= 0.8;
+	}
+	// Фиксируем значение тока в первой ветви
+	double i1 = i[0] * 0.8;
+
+	// в матрице 4 строки, потому что е2 неизвестно
+	double** A = { new double* [m - 1] {} };
+
+	A[0] = new double[m] {-0.8, 0, 1, -1, 0};
+	A[1] = new double[m] {0.8, -1, 0, 0, 1};
+	A[2] = new double[m] {0.8 * r[0], 0, r[2], 0, -r[4]};
+	A[3] = new double[m] {0, 0, r[2], r[3], 0};
+	
+	// вектор-столбец b
+	double* b{ new double[m] { 0, 0,  e[0] + e[2], e[2] + e[3] } };
+
+	double* i_2 = Gaousse(A, b, m-1, m);
+	/*cout << "Значение тока в цепях:" << endl;
+	for (int k = 0; k < m; k++)
+	{
+		cout << "i[" << k + 1 << "] = " << i_2[k] << endl;
+	}*/
+	e2 = r[1] * i_2[1] + r[4] * i_2[3];
+	cout << "ЕДС: " << e2 << endl;
 }
