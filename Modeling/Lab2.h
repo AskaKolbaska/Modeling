@@ -4,5 +4,5 @@
 
 void Lab2();
 
-double* Gaousse(double**, double*, int, int);
+double* Gaousse(double**, double*, int);
 void Zad2(double*, double*, double*, int);

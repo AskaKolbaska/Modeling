@@ -41,7 +41,7 @@ void Lab2() {
 	A[3] = new double[m] {0, r[1], 0, 0, r[4]};
 	A[4] = new double[m] {0, 0, r[2], r[3], 0 };
 
-	double* i = Gaousse(A, b, m, m);
+	double* i = Gaousse(A, b, m);
 	cout << "Значение тока в цепях:" << endl;
 	for (int k = 0; k < m; k++)
 	{
@@ -53,7 +53,7 @@ void Lab2() {
 }
 
 // метод гаусса
-double* Gaousse(double** a, double* b, int n, int m) {
+double* Gaousse(double** a, double* b, int n) {
 		
 	for (int k = 0; k < n; k++)
 	{
@@ -63,7 +63,7 @@ double* Gaousse(double** a, double* b, int n, int m) {
 
 			for (int i = k + 1; i < n; i++)
 			{
-				if (abs(a[i][k] > max)) {
+				if (abs(a[i][k]) > max) {
 					max = abs(a[i][k]);
 					imax = i;
 				}
@@ -133,22 +133,23 @@ void Zad2(double* r, double* e, double* i, int m) {
 	double i1 = i[0] * 0.8;
 
 	// в матрице 4 строки, потому что е2 неизвестно
-	double** A = { new double* [m - 1] {} };
+	double** A{ new double* [m] {} };
 
-	A[0] = new double[m] {-0.8, 0, 1, -1, 0};
-	A[1] = new double[m] {0.8, -1, 0, 0, 1};
-	A[2] = new double[m] {0.8 * r[0], 0, r[2], 0, -r[4]};
-	A[3] = new double[m] {0, 0, r[2], r[3], 0};
-	
+	A[0] = new double[m] {0, 0, 1, -1, 0};
+	A[1] = new double[m] {0, -1, 0, 0, 1};
+	A[2] = new double[m] {0, 0, r[2], 0, -r[4]};
+	A[3] = new double[m] {-1, r[1], 0, 0, r[4]};
+	A[4] = new double[m] {0, 0, r[2], r[3], 0};
+
 	// вектор-столбец b
-	double* b{ new double[m] { 0, 0,  e[0] + e[2], e[2] + e[3] } };
+	double* b{ new double[m] { i1, -i1,  e[0] + e[2] - (r[0] * i1), 0, e[2] + e[3] } };
 
-	double* i_2 = Gaousse(A, b, m-1, m);
-	/*cout << "Значение тока в цепях:" << endl;
+	double* i_2 = Gaousse(A, b, m);
+	cout << "Значение тока в цепях:" << endl;
 	for (int k = 0; k < m; k++)
 	{
 		cout << "i[" << k + 1 << "] = " << i_2[k] << endl;
-	}*/
-	e2 = r[1] * i_2[1] + r[4] * i_2[3];
-	cout << "ЕДС: " << e2 << endl;
+	}
+
+	cout << "ЕДС: " << i_2[0] << endl;
 }
