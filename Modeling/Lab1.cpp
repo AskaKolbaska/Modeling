@@ -37,10 +37,15 @@ void Zad1(int p, int q) {
 void Zad2(int p, int q) {
 	int t = 5; // 5 лет
 	double y = 10 * (100 + 4 * p + 3 * q + 1); // итоговая сумма
+	double r = CountR(p, q);
+
+	double A = (1 + 1 / (10 * r)) * (pow(1 + r, t + 1));
+	double B = t / (10 * r);
+	double C = (1 / (10 * pow(r, 2))) * (1 + 11 * r);
 
 	cout << endl << "Задание 2: найти первоначальный вклад" << endl << endl;
 
-	double z0 = y/(10 * y * pow(CountR(p, q), 2) / (10 * CountR(p, q) * (1 + 1 / (10 * CountR(p, q))) * pow(1 + CountR(p, q), t + 1) - t * CountR(p, q) - 1));
+	double z0 = y / ( (1 / r) * A - B - C);
 	cout << "Начальный вклад должен составлять: " << z0 << endl;
 }
 

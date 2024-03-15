@@ -132,7 +132,6 @@ void Zad2(double* r, double* e, double* i, int m) {
 	// Фиксируем значение тока в первой ветви
 	double i1 = i[0] * 0.8;
 
-	// в матрице 4 строки, потому что е2 неизвестно
 	double** A{ new double* [m] {} };
 
 	A[0] = new double[m] {0, 0, 1, -1, 0};
