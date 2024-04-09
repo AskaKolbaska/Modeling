@@ -52,7 +52,7 @@ void Lab2() {
 	Zad2(r, e, i, m);
 }
 
-// метод гаусса
+// метод гауссенка
 double* Gaousse(double** a, double* b, int n) {
 		
 	for (int k = 0; k < n; k++)

@@ -128,14 +128,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="example.cpp" />
     <ClCompile Include="Lab1.cpp" />
     <ClCompile Include="Lab2.cpp" />
+    <ClCompile Include="Lab3.cpp" />
     <ClCompile Include="Modeling.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="example.h" />
     <ClInclude Include="Includes.h" />
     <ClInclude Include="Lab1.h" />
     <ClInclude Include="Lab2.h" />
+    <ClInclude Include="Lab3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

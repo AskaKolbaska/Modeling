@@ -4,15 +4,19 @@
 #include <iostream>
 #include "Lab1.h"
 #include "Lab2.h"
+#include "Lab3.h"
+#include "example.h"
 
 int main()
 {
     RusConsole();
+
+    //example();
     
     int otvet = 0;
     do
     {
-        cout << "Выберите номер задания (доступно 2): ";
+        cout << "Выберите номер задания (доступно 3): ";
         cin >> otvet;
         switch (otvet)
         {
@@ -23,6 +27,10 @@ int main()
         }
         case 2: {
             Lab2();
+            break;
+        }
+        case 3: {
+            Lab3();
             break;
         }
         default:
