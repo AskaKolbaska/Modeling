@@ -72,7 +72,7 @@ void Lab3()
 	kvadra = MNK(t, y, 2, 5);
 	// вывод промежуточного отчета
 	cout << endl << "Коэффициенты квадратичного тренда" << endl;
-	for (int k = 0; k < 2; k++)
+	for (int k = 0; k < 3; k++)
 	{
 		cout << kvadra[k] << endl;
 	}

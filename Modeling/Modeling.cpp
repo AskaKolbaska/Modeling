@@ -5,6 +5,8 @@
 #include "Lab1.h"
 #include "Lab2.h"
 #include "Lab3.h"
+#include "Lab4.h"
+#include "Lab5.h"
 #include "example.h"
 
 int main()
@@ -16,7 +18,7 @@ int main()
     int otvet = 0;
     do
     {
-        cout << "Выберите номер задания (доступно 3): ";
+        cout << "Выберите номер задания (доступно 5): ";
         cin >> otvet;
         switch (otvet)
         {
@@ -31,6 +33,14 @@ int main()
         }
         case 3: {
             Lab3();
+            break;
+        }
+        case 4: {
+            Lab4();
+            break;
+        }
+        case 5: {
+            Lab5();
             break;
         }
         default:
