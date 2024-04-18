@@ -51,13 +51,25 @@ void Lab5()
 	{
 		cout << setw(5) << k[i] << setw(5) << t[i] << setw(10) << v[i] << setw(10) << x[i] << setw(10) << y[i] << setw(10) << h[i] << endl;
 	}
+
+	double t_padenie = t.end()[-2] - ((h.end()[-2] / (h.end()[-1] - h.end()[-2])) * (t.end()[-1] - t.end()[-2]));
+
+	double l_snaryad = Vc * t_padenie; // дальность полета снар€да
+	double l_kolonna = Vk * t_padenie; // рассто€ние пройденное колонной
+
+	double l = l_snaryad - l_kolonna;
+
+	cout << endl;
+	cout << "¬рем€ падени€ снар€да: " << t_padenie << " с" << endl;
+	cout << "”преждение: " << l << " м" << endl;
+
+
 }
 
 // пр€ма€ схема Ёйлера
 void Scheme_Euler(double m, double* H, double Vc, double k1, double k2, vector<double>* k,vector<double>* t, vector<double>* x, vector<double>* y, vector<double>* v, vector<double>* h) {
 	int k_ex = 0;
 	double y_ex;
-	double h_ex;
 
 	t->push_back(k_ex); // t0 = 0
 	k->push_back(k_ex);
