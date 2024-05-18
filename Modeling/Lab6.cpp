@@ -225,7 +225,7 @@ void Lab6()
 		// делим b_i / a_i_j
 		for (int i = 0; i < 5; i++)
 		{
-			b_a[i] = static_cast<double>(b[i]) / matrix[i][ind_j];
+			b_a[i] = matrix[i][9] / matrix[i][ind_j];
 
 			// поиск максимального среди b_i / a_i_j
 			if (b_a[i] > max)
@@ -245,9 +245,10 @@ void Lab6()
 
 		// запись коэффициента a в массив ответов
 		y[ind_i] = matrix[ind_i][ind_j];
-		if (ind_j<5)
+		// если коэффициент один из Х, то записываем номер строки (b_i)
+		if (ind_j<4)
 		{
-			x[ind_j] = 1;
+			x[ind_j] = ind_i+1; // номер строки +1
 		}
 
 		//show_matrix(matrix, y);
@@ -272,7 +273,7 @@ void Lab6()
 			if (i != ind_i) {
 				for (int j = 0; j < 10; j++)
 				{
-					matrix[i][j] = matrix[ind_i][j] * matrix[i][ind_j] - matrix[i][j];
+					matrix[i][j] = matrix[i][j] - matrix[ind_i][j] * matrix[i][ind_j];
 				}
 			}
 		}
@@ -303,8 +304,12 @@ void Lab6()
 	cout << endl << endl;
 	for (int i = 0; i < 4; i++)
 	{
-		//cout << x[i] << endl;
-		x[i] = x[i] * matrix[i][9];
+		cout << x[i] << endl;
+		if (x[i]!=0)
+		{
+			x[i] = matrix[i][9];
+		}
+		
 	}
 
 	// ВЫВОД РЕЗУЛЬТАТОВ //
@@ -312,14 +317,14 @@ void Lab6()
 		//cout << "Общие затраты временных ресурсов: " << matrix[5][9] << endl;
 		for (int i = 0; i < 4; i++)
 		{
-			cout << "x_" << i << ": " << x[i] << endl;
+			cout << "x_" << i+1 << ": " << x[i] << endl;
 		}
 		double res = 0;
 		for (int i = 0; i < 4; i++)
 		{
 			res += c[i] * x[i];
 		}
-		cout << "Максимальная общая прибыль: " << res << endl;
+		cout << "Максимальная общая прибыль: " << fixed << res << endl;
 	}
 }
 
@@ -343,3 +348,5 @@ void show_matrix(double** matrix, double* y) {
 		cout << endl;
 	}
 }
+
+//double* Count_Matrix(double** matrix, )
