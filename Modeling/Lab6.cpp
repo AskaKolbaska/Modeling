@@ -85,13 +85,6 @@ void Lab6()
 		y[i] = 0;
 	}
 
-	// решения уравнения
-	double* x = new double[5];
-	for (int i = 0; i < 5; i++)
-	{
-		x[i] = 0;
-	}
-
 	// ВЫВОД ИСХОДНЫХ ДАННЫХ //
 	{
 		cout << "\nИСХОДНЫЕ ДАННЫЕ:" << endl << endl;
@@ -199,6 +192,53 @@ void Lab6()
 	cout << endl << "Изначальная матрица:" << endl << endl;
 	show_matrix(matrix, y);
 
+	double* x = Count_Matrix(matrix, y);
+
+	// ВЫВОД РЕЗУЛЬТАТОВ //
+	{
+		//cout << "Общие затраты временных ресурсов: " << matrix[5][9] << endl;
+		for (int i = 0; i < 4; i++)
+		{
+			cout << "x_" << i+1 << ": " << x[i] << endl;
+		}
+		double res = 0;
+		for (int i = 0; i < 4; i++)
+		{
+			res += c[i] * x[i];
+		}
+		cout << "Максимальная общая прибыль: " << fixed << res << endl;
+	}
+}
+
+void show_matrix(double** matrix, double* y) {
+	cout << setw(10) << " " << setw(10) << "x_1" << setw(10) << "x_2" << setw(10) << "x_3" << setw(10) << "x_4" << setw(10)
+		<< setw(10) << "y_1" << setw(10) << "y_2" << setw(10) << "y_3" << setw(10) << "y_4" << setw(10) << "y_5" << setw(10) << "b_i" << endl;
+	for (int i = 0; i < 6; i++)
+	{
+		if (i<5)
+		{
+			cout << setw(10) << y[i];
+		}
+		else {
+			cout << setw(10) << " ";
+		}
+
+		for (int j = 0; j < 10; j++)
+		{
+			cout << setw(10) << matrix[i][j];
+		}
+		cout << endl;
+	}
+}
+
+double* Count_Matrix(double** matrix, double* y) {
+	// решения уравнения
+	double* x = new double[5];
+	for (int i = 0; i < 5; i++)
+	{
+		x[i] = 0;
+	}
+
 	bool is_minus = true; // флаг знаков коэффициентов в z
 	int number = 0; // счетчик шагов
 	do
@@ -246,9 +286,9 @@ void Lab6()
 		// запись коэффициента a в массив ответов
 		y[ind_i] = matrix[ind_i][ind_j];
 		// если коэффициент один из Х, то записываем номер строки (b_i)
-		if (ind_j<4)
+		if (ind_j < 4)
 		{
-			x[ind_j] = ind_i+1; // номер строки +1
+			x[ind_j] = ind_i + 1; // номер строки +1
 		}
 
 		//show_matrix(matrix, y);
@@ -287,7 +327,7 @@ void Lab6()
 			bool flag = true;
 
 			// если элемент отрицательный
-			if (matrix[5][j]< 0) {
+			if (matrix[5][j] < 0) {
 				flag = true;
 				is_minus = flag;
 				break;
@@ -305,48 +345,12 @@ void Lab6()
 	for (int i = 0; i < 4; i++)
 	{
 		cout << x[i] << endl;
-		if (x[i]!=0)
+		if (x[i] != 0)
 		{
 			x[i] = matrix[i][9];
 		}
-		
+
 	}
 
-	// ВЫВОД РЕЗУЛЬТАТОВ //
-	{
-		//cout << "Общие затраты временных ресурсов: " << matrix[5][9] << endl;
-		for (int i = 0; i < 4; i++)
-		{
-			cout << "x_" << i+1 << ": " << x[i] << endl;
-		}
-		double res = 0;
-		for (int i = 0; i < 4; i++)
-		{
-			res += c[i] * x[i];
-		}
-		cout << "Максимальная общая прибыль: " << fixed << res << endl;
-	}
+	return x;
 }
-
-void show_matrix(double** matrix, double* y) {
-	cout << setw(10) << " " << setw(10) << "x_1" << setw(10) << "x_2" << setw(10) << "x_3" << setw(10) << "x_4" << setw(10)
-		<< setw(10) << "y_1" << setw(10) << "y_2" << setw(10) << "y_3" << setw(10) << "y_4" << setw(10) << "y_5" << setw(10) << "b_i" << endl;
-	for (int i = 0; i < 6; i++)
-	{
-		if (i<5)
-		{
-			cout << setw(10) << y[i];
-		}
-		else {
-			cout << setw(10) << " ";
-		}
-
-		for (int j = 0; j < 10; j++)
-		{
-			cout << setw(10) << matrix[i][j];
-		}
-		cout << endl;
-	}
-}
-
-//double* Count_Matrix(double** matrix, )
